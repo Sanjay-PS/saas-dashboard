@@ -1,6 +1,5 @@
 import { Fragment, ReactNode } from "react";
 import { Stack, Typography, TypographyProps } from "@mui/joy";
-import { Slide } from "react-awesome-reveal";
 
 type ListProps = {
     title?: ReactNode,
