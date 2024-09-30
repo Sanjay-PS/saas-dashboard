@@ -9,6 +9,7 @@ import IconButton from '../../components/IconButton/IconButton';
 import SearchInput from '../../components/Input/SearchInput';
 import { Checkbox as MUICheckbox } from '@mui/joy';
 import Pagination from '../../components/Pagination/Pagination';
+import { Fade } from 'react-awesome-reveal';
 
 const borderStyle = "0.5px solid neutral.300";
 
@@ -66,82 +67,83 @@ const Checkbox = () => (
 function Orders() {
 
 	return (
-		<Grid container spacing={2}>
-			<Grid size={12}>
-				<Typography level="title-sm" fontWeight={600}>Orders</Typography>			
-			</Grid>
-			<Grid size={12}>
-				<Card size="sm" sx={{ "--Card-radius": "8px" }}>
-					<Box gap={1} display={"flex"} alignItems={"center"}>
-						<IconButton><Plus size={20} /></IconButton>
-						<IconButton><FunnelSimple size={20} /></IconButton>						
-						<IconButton><ArrowsDownUp size={20} /></IconButton>
-						<Box flexGrow={1}/>
-						<SearchInput variant='outlined' showEndDecorator={false}/>
-					</Box>
-				</Card>
-			</Grid>
-			<Grid>
-				<Table 
-					size='lg'
-					headers={[<Checkbox/>,...orders.headers].map((header, index) => (
-						<Typography 
-						key={index} 
-						level='body-xs' 
-						color='neutral'
-						fontWeight={400}>
-							{header}
-						</Typography>
-					))}
-					rows={orders.rows.map((row) => {
-						const TextContent = ({text}:{text: string}) => (
+		<Fade triggerOnce>
+			<Grid container spacing={2}>
+				<Grid size={12}>
+					<Typography level="title-sm" fontWeight={600}>Orders</Typography>			
+				</Grid>
+				<Grid size={12}>
+					<Card size="sm" sx={{ "--Card-radius": "8px" }}>
+						<Box gap={1} display={"flex"} alignItems={"center"}>
+							<IconButton><Plus size={20} /></IconButton>
+							<IconButton><FunnelSimple size={20} /></IconButton>						
+							<IconButton><ArrowsDownUp size={20} /></IconButton>
+							<Box flexGrow={1}/>
+							<SearchInput variant='outlined' showEndDecorator={false}/>
+						</Box>
+					</Card>
+				</Grid>
+				<Grid overflow={"auto"}>
+					<Table 
+						size='lg'
+						headers={[<Checkbox/>,...orders.headers].map((header, index) => (
 							<Typography 
+							key={index} 
 							level='body-xs' 
-							fontWeight={500}>
-								{text}
+							color='neutral'
+							fontWeight={400}>
+								{header}
 							</Typography>
-						)
+						))}
+						rows={orders.rows.map((row) => {
+							const TextContent = ({text}:{text: string}) => (
+								<Typography 
+								level='body-xs' 
+								fontWeight={500}>
+									{text}
+								</Typography>
+							)
 
-						const cells = [
-							<Checkbox/>,
-							<TextContent text={row.orderId}/>,
-							<IconText
-								avatar={row.avatar}
-								primaryText={row.fullName}	
-								padding={0}					
-							/>,
-							<TextContent text={row.project}/>,
-							<TextContent text={row.address}/>,
-							<Box display={"flex"} alignItems={"center"} gap={0.5}>
-								<CalendarBlank size={20} weight='duotone'/>
-								<TextContent text={row.date}/>
-							</Box>,
-							<Status status={row.status}/>,
-						];
+							const cells = [
+								<Checkbox/>,
+								<TextContent text={row.orderId}/>,
+								<IconText
+									avatar={row.avatar}
+									primaryText={row.fullName}	
+									padding={0}					
+								/>,
+								<TextContent text={row.project}/>,
+								<TextContent text={row.address}/>,
+								<Box display={"flex"} alignItems={"center"} gap={0.5}>
+									<CalendarBlank size={20} weight='duotone'/>
+									<TextContent text={row.date}/>
+								</Box>,
+								<Status status={row.status}/>,
+							];
 
-						return cells;
-					})}
-					columnStyles={[
-						{paddingBlock: "12px", height: 0, borderBottom: borderStyle, width: "3%"},
-						{paddingBlock: "12px", height: 0, borderBottom: borderStyle, width: "7.5%"},
-						{paddingBlock: "12px", height: 0, borderBottom: borderStyle},
-						{paddingBlock: "12px", height: 0, borderBottom: borderStyle},
-						{paddingBlock: "12px", height: 0, borderBottom: borderStyle},
-						{paddingBlock: "12px", height: 0, borderBottom: borderStyle, width: "12.5%"},
-						{paddingBlock: "12px", height: 0, borderBottom: borderStyle, width: "12.5%"},
-						{paddingBlock: "12px", height: 0, borderBottom: borderStyle},
-					]}
-					// borderAxis='none'
-					sx={{
-						"--TableCell-headBackground": "none",
-						"--Table-headerUnderlineThickness": 0.5
-					}}
-				/>
+							return cells;
+						})}
+						columnStyles={[
+							{paddingBlock: "12px", height: 0, borderBottom: borderStyle, width: "2rem"},
+							{paddingBlock: "12px", height: 0, borderBottom: borderStyle, width: "5rem"},
+							{paddingBlock: "12px", height: 0, borderBottom: borderStyle, width: "15rem"},
+							{paddingBlock: "12px", height: 0, borderBottom: borderStyle, width: "12rem"},
+							{paddingBlock: "12px", height: 0, borderBottom: borderStyle, width: "15rem"},
+							{paddingBlock: "12px", height: 0, borderBottom: borderStyle, width: "8rem"},
+							{paddingBlock: "12px", height: 0, borderBottom: borderStyle, width: "10rem"}
+						]}
+						// borderAxis='none'
+						sx={{
+							"--TableCell-headBackground": "none",
+							"--Table-headerUnderlineThickness": 0.5
+						}}
+					/>
+				</Grid>
+				<Grid size={12} display={"flex"} justifyContent={"end"}>
+					<Pagination pages={5} activePage={1}/>
+				</Grid>
 			</Grid>
-			<Grid size={12} display={"flex"} justifyContent={"end"}>
-				<Pagination pages={5} activePage={1}/>
-			</Grid>
-		</Grid>
+		</Fade>
 	)
 }
 

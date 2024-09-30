@@ -9,7 +9,7 @@ type TableProps = {
 
 export default function Table({ headers, rows, columnStyles, ...props }: TableProps) {
     return (
-        <MUITable {...props}>
+        <MUITable {...props} sx={{ overflow: 'scroll', ...props.sx }}>
             <thead>
                 <tr>
                     {headers.map((header, index) => <th style={columnStyles[index]} key={index}>{header}</th>)}
@@ -18,7 +18,7 @@ export default function Table({ headers, rows, columnStyles, ...props }: TablePr
             <tbody>
                 {rows.map((row, index) => (
                     <tr key={index}>
-                        {row.map((cell, index) => <td key={index}>{cell}</td>)}
+                        {row.map((cell, index) => <td style={columnStyles[index]} key={index}>{cell}</td>)}
                     </tr>
                 ))}                
             </tbody>

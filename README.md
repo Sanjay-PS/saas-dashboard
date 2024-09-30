@@ -94,7 +94,7 @@ src/
 
 ## Design Decisions
 
-1. **UI Library**: I used Material-UI Joy UI to ensure a faster UI that aligns with modern design principles. Also created a custom theme which matches the Figma mockups.
+1. **UI Library**: I used Material-UI Joy UI to ensure a fast and responsive UI that aligns with modern design principles. Also created a custom theme which matches the Figma mockups.
 2. **Motion & Microinteractions**: Microinteractions such as hover effects, button animations, and input field transitions were included to enhance user experience.
 3. **Code Quality**: The project follows best practices for structuring and modularity. Components are reusable and organized for scalability, and the CSS is modularized using CSS Modules/Styled Components.
 

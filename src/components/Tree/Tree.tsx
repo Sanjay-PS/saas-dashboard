@@ -3,8 +3,10 @@ import ListItem from '@mui/joy/ListItem';
 import ListItemButton from '@mui/joy/ListItemButton';
 import { CaretDown, CaretRight, ChartPieSlice } from '@phosphor-icons/react';
 import { ListItemContent } from '@mui/joy';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Fade } from 'react-awesome-reveal';
+import { Slide } from '../Transitions/Transitions';
 
 
 type TreeItemProps = {
@@ -18,22 +20,19 @@ type TreeItemProps = {
 
 const TreeItem = ({ arrow, icon, children, selected, link, onClick }: TreeItemProps) => {
     const navigate = useNavigate();
+    
+    const handleTreeItemClick = useCallback(() => {
+        if(onClick) onClick();
+        else navigate(link ?? "")
+    }, [link, onClick])
 
     return (
         <ListItem>
-            <ListItemButton selected={selected} variant="plain" onClick={() => { navigate(link ?? "") }}>
-                {(arrow && arrow === "open") && (
-                    <CaretDown 
-                        size={16}
-                        style={{ opacity: 0.4 }} 
-                        onClick={() => { if(onClick) onClick() }}
-                    />            
-                )} 
-                {(arrow && arrow === "close") && (
+            <ListItemButton selected={selected} variant="plain" onClick={handleTreeItemClick}>        
+                {(arrow) && (
                     <CaretRight 
                         size={16}
-                        style={{ opacity: 0.4 }} 
-                        onClick={() => { if(onClick) onClick() }}
+                        style={{ opacity: 0.4, transform: `rotate(${arrow === "open" ? "90DEG" : "0DEG"})`, transition: 'transform 200ms' }}
                     />            
                 )} 
                 {(!arrow || arrow === "hidden") && (
@@ -72,9 +71,18 @@ const NestedTreeItem = ({ icon, children, nestedItems, selected, link }: NestedT
                 >
                 {children}
             </TreeItem>
-            {open && nestedItems?.map((nestedItem, index) => (
-                <TreeItem key={index}>{nestedItem}</TreeItem>
-            ))}
+            {/* <Slide show={open} direction={open ? 'down' : 'up'} duration={200}>
+                {nestedItems?.map((nestedItem, index) => (
+                    <TreeItem key={index}>{nestedItem}</TreeItem>
+                ))}
+            </Slide> */}
+            {(open) && (
+                <Fade reverse={!open} direction={open ? 'down' : 'up'} duration={200} cascade>
+                    {nestedItems?.map((nestedItem, index) => (
+                        <TreeItem key={index}>{nestedItem}</TreeItem>
+                    ))}
+                </Fade>
+            )}
         </ListItem>
     )
 }
