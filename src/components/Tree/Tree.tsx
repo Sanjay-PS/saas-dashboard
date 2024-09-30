@@ -1,12 +1,11 @@
 import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
 import ListItemButton from '@mui/joy/ListItemButton';
-import { CaretDown, CaretRight, ChartPieSlice } from '@phosphor-icons/react';
+import { CaretRight, ChartPieSlice } from '@phosphor-icons/react';
 import { ListItemContent } from '@mui/joy';
 import { ReactNode, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Fade } from 'react-awesome-reveal';
-import { Slide } from '../Transitions/Transitions';
 
 
 type TreeItemProps = {
